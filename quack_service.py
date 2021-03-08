@@ -33,7 +33,9 @@ def random_food(number):
     for line in message_text:
       food_places = line.replace("\n", " ").strip()
       foods.append(food_places)
-  if(number) > 1:
+  if number > len(foods):
+    return ', '.join(random.sample(foods,len(foods)-1))
+  elif number > 1:
     return ', '.join(random.sample(foods,number))
   else:
     return random.choice(foods)
