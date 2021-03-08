@@ -27,6 +27,17 @@ def print_quack(number):
   result += '!'
   return result
 
+def random_food(number):
+  foods = []
+  with open('foods.txt') as message_text:
+    for line in message_text:
+      food_places = line.replace("\n", " ").strip()
+      foods.append(food_places)
+  if(number) > 1:
+    return ', '.join(random.sample(foods,number))
+  else:
+    return random.choice(foods)
+
 def check_gme():
   print('GME stock check')
   return si.get_live_price("gme")
