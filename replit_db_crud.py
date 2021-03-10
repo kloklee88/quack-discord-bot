@@ -7,3 +7,10 @@ def get_personalized_message(username):
 
 def save_personalized_message(username,message):
   db[username] = message
+
+def save_alert_enabled(alert,is_enabled):
+  db[alert] = is_enabled
+
+def get_alert_enabled(alert):
+  is_enabled = db[alert]
+  return is_enabled

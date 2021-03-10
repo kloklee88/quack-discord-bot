@@ -10,6 +10,9 @@ replit = "^2.0.0"
 discord = "^1.0.1"
 flask = "^1.1.2"
 yahoo-fin = "^0.8.7"
+lxml = "^4.6.2"
+aiocron = "^1.4"
+selenium = "^3.141.0"
 
 [tool.poetry.dev-dependencies]
 
