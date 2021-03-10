@@ -1,7 +1,7 @@
 Confucius;1500
 Rags;1500
 Not Today;1500
-ellie;1500
+beth;1500
 AGenericName;1500
 Manoafalls;1500
 xXMadreloaderXx;1500

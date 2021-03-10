@@ -40,9 +40,17 @@ def random_food(number):
   else:
     return random.choice(foods)
 
+def check_stock(stock):
+  print(stock)
+  try:
+    stock_value = '{:.2f}'.format(si.get_live_price(stock))
+    return f'{stock.upper()} live price (not after hours): {stock_value}'
+  except:
+    return f'{stock.upper()} symbol could not be found'
+
 def check_gme():
-  print('GME stock check')
-  return si.get_live_price("gme")
+  stock_value = '{:.2f}'.format(si.get_live_price("gme"))
+  return f':rocket: GME :rocket: -- {stock_value}'
 
 def get_all_players():
   players = []

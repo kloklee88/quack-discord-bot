@@ -33,5 +33,5 @@ Lsw1225;The stars at night are big and bright (clap, clap, clap, clap) Deep in t
 Zenavi;This is fine! :fire:
 Scoogie;Playing WoW?
 Scoogie;WoW Arena rank 2500+
-ellie;DJJJJJJJJ ~~Khaled~~ Beth :musical_note:
-ellie;:point_right: AGenericName
+beth;DJJJJJJJJ ~~Khaled~~ Beth :musical_note:
+beth;:point_right: AGenericName

@@ -19,6 +19,11 @@ async def on_message(message):
 
   #Process message commands
   full_command = message.content.strip().split(' ')
+  if message.content.startswith('!stock'):
+    if len(full_command) == 2:
+      first_command = full_command[1]
+      await message.channel.send(check_stock(first_command))
+
   if message.content.startswith('!quack') or message.content.startswith('!quak'):
     print(full_command)
     if len(full_command) == 2:
@@ -80,7 +85,7 @@ def about():
   return "A dedicated Discord bot for He's a Quack! server for everything, anything, and nothing :smile:"
 
 def help():
-  return 'Commands:\n**!quack about** -- bot description\n**!quack @mention** -- where @mention is anybody in the server to receive a random customized message (maybe). People may have more than one message too. Keep using this command to find all of your messages.\n**!quack quack quack...** -- quacks?\n**!gme** -- checks if we are going to the moon\n**!food #** -- randomnly suggests # (optional value, default is 1) food places to eat\n**!inhouse** -- view all the available players in the system with a MMR\n**!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. This will balance players accordingly into two balanced team using MMR (this functionality is currently in progress)'
+  return 'Commands:\n**!quack about** -- bot description\n**!quack @mention** -- where @mention is anybody in the server to receive a random customized message (maybe). People may have more than one message too. Keep using this command to find all of your messages.\n**!quack quack quack...** -- quacks?\n**!gme** -- checks if we are going to the moon\n**!stock symbol** -- checks stock price with the symbol provided\n**!food #** -- randomnly suggests # (optional value, default is 1) food places to eat\n**!inhouse** -- view all the available players in the system with a MMR\n**!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. This will balance players accordingly into two balanced team using MMR (this functionality is currently in progress)'
 
 def check_all_quack(full_command):
   print('Checking quacks')
@@ -98,6 +103,9 @@ def quack(number):
 
 def gme():
   return quack_service.check_gme()
+
+def check_stock(stock):
+  return quack_service.check_stock(stock)
 
 def available_players():
   return ', '.join(quack_service.get_all_players())
