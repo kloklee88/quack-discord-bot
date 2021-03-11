@@ -86,7 +86,7 @@ async def on_message(message):
   if message.content.startswith('garbage bot') or message.content.startswith('trash bot'):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
 
-@aiocron.crontab('* 9-17 * * *')
+@aiocron.crontab('*/2 9-17 * * *')
 #@aiocron.crontab('* * * * *')
 async def gme_short_alert():
   print('Checking GME borrow')
@@ -94,14 +94,14 @@ async def gme_short_alert():
   borrow_info = f'Fee ({data[0]}) | Available ({data[1]}) | Updated ({data[2]})'
   channel = discord.utils.get(client.get_all_channels(), guild__name='Confucius Private', name='misc')
   jorge = await client.fetch_user(184469619879313408)
-  print(jorge)
+  #print(jorge)
   is_alert_enabled = replit_db_crud.get_alert_enabled("gme")
   borrow_latest = replit_db_crud.get_alert_enabled("borrow_latest")
-  print(f'Last: {borrow_latest} vs Recent: {data[2]})')
+  print(f'Last: {borrow_latest} vs Recent: {data[2]}')
   print(f'Alert enabled: {is_alert_enabled}')
   if is_alert_enabled and borrow_latest != data[2]:
     await channel.send(borrow_info)
-    #await jorge.send(borrow_info)
+    await jorge.send(borrow_info)
 
 def inhouse(mentions, option):
   return quack_service.balance(mentions, option)

@@ -4,12 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from yahoo_fin import stock_info as si
 
-#Init Chrome selenium
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome(options=chrome_options)
-
 def get_personalized_message(user):
   all_user_messages = []
   with open('personalized_message.txt') as message_text:
@@ -50,14 +44,21 @@ def random_food(number):
     return random.choice(foods)
 
 def check_gme_borrow():
-  print('Getting driver...')
-  driver.get("https://iborrowdesk.com/report/GME")
-  #info = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]').text
-  fee = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[1]').text
-  available = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[2]').text
-  updated = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[3]').text
-  replit_db_crud.save_alert_enabled('borrow_latest', updated)
-  data = [fee, available, updated]
+  try:
+    chrome_options = Options()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    print('Getting driver...')
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get("https://iborrowdesk.com/report/GME")
+    fee = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[1]').text
+    available = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[2]').text
+    updated = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[3]').text
+    replit_db_crud.save_alert_enabled('borrow_latest', updated)
+    data = [fee, available, updated]
+  finally:
+    if driver:
+       driver.quit()
   return data
 
 def save_alert_enabled(alert,is_enabled):
