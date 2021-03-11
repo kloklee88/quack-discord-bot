@@ -8,7 +8,9 @@ from keep_alive import keep_alive
 #Flask Server to keep repl.it alive
 keep_alive()
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
@@ -83,17 +85,31 @@ async def on_message(message):
         save_alert_enabled('gme', eval(second_command))
         await message.channel.send("Alert for GME updated")
 
+  if message.content.startswith('!shouldisellgme'):
+    await message.channel.send(shouldisellgme())
+
+  if message.content.startswith('!jorgegenshin'):
+    result = ''
+    guild = client.get_guild(int(os.getenv('GUILD')))
+    jorge = guild.get_member(int(os.getenv('JORGE')))
+    print(jorge.activity)
+    if jorge.activity == 'Genshin Impact':
+      result = 'yes'
+    else:
+      result = 'no'
+    await message.channel.send(result)
+
   if message.content.startswith('garbage bot') or message.content.startswith('trash bot'):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
 
-@aiocron.crontab('*/2 9-17 * * *')
+#@aiocron.crontab('*/2 * * * *')
 #@aiocron.crontab('* * * * *')
 async def gme_short_alert():
   print('Checking GME borrow')
   data = quack_service.check_gme_borrow()
   borrow_info = f'Fee ({data[0]}) | Available ({data[1]}) | Updated ({data[2]})'
   channel = discord.utils.get(client.get_all_channels(), guild__name='Confucius Private', name='misc')
-  jorge = await client.fetch_user(184469619879313408)
+  jorge = await client.fetch_user(int(os.getenv('JORGE')))
   #print(jorge)
   is_alert_enabled = replit_db_crud.get_alert_enabled("gme")
   borrow_latest = replit_db_crud.get_alert_enabled("borrow_latest")
@@ -112,8 +128,11 @@ def personalized_message(mentions):
 def about():
   return "A dedicated Discord bot for He's a Quack! server for everything, anything, and nothing :smile:"
 
+def shouldisellgme():
+  return quack_service.shouldisellgme()
+
 def help():
-  return 'Commands:\n**!quack about** -- bot description\n**!quack @mention** -- where @mention is anybody in the server to receive a random customized message (maybe). People may have more than one message too. Keep using this command to find all of your messages.\n**!quack quack quack...** -- quacks?\n**!gme** -- checks if we are going to the moon\n**!stock symbol** -- checks stock price with the symbol provided\n**!alert gme True/False** -- turns off borrow alerts for GME True or False needs to be capitalized\n**!food #** -- randomnly suggests # (optional value, default is 1) food places to eat\n**!inhouse** -- view all the available players in the system with a MMR\n**!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. This will balance players accordingly into two balanced team using MMR (this functionality is currently in progress)'
+  return quack_service.get_help()
 
 def check_all_quack(full_command):
   print('Checking quacks')

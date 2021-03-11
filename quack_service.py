@@ -49,6 +49,7 @@ def check_gme_borrow():
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     print('Getting driver...')
+    driver = None
     driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://iborrowdesk.com/report/GME")
     fee = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[1]').text
@@ -57,12 +58,23 @@ def check_gme_borrow():
     replit_db_crud.save_alert_enabled('borrow_latest', updated)
     data = [fee, available, updated]
   finally:
-    if driver:
+    if driver is not None:
        driver.quit()
   return data
 
 def save_alert_enabled(alert,is_enabled):
   replit_db_crud.save_alert_enabled(alert,is_enabled)
+
+def shouldisellgme():
+  stock_value = si.get_live_price("gme")
+  if stock_value > 500:
+    return 'yes'
+  elif stock_value > 400:
+    return 'probably'
+  elif stock_value > 300:
+    return 'maybe'
+  else:
+    return 'no'
 
 def check_stock(stock):
   print(stock)
@@ -86,6 +98,11 @@ def get_all_players():
       players.append(username)
   print(players)
   return players
+
+def get_help():
+  f = open('help.txt')
+  help = f.readlines()
+  return ''.join(help)
 
 def shuffle_balance(users):
   print("Shuffling")
