@@ -10,6 +10,7 @@ keep_alive()
 
 intents = discord.Intents.default()
 intents.members = True
+intents.presences = True
 client = discord.Client(intents=intents)
 
 @client.event
@@ -93,8 +94,8 @@ async def on_message(message):
     guild = client.get_guild(int(os.getenv('GUILD')))
     jorge = guild.get_member(int(os.getenv('JORGE')))
     print(jorge.activity)
-    if jorge.activity == 'Genshin Impact':
-      result = 'yes'
+    if 'Genshin Impact' in str(jorge.activity):
+      result = 'of course he is'
     else:
       result = 'no'
     await message.channel.send(result)
@@ -103,7 +104,6 @@ async def on_message(message):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
 
 #@aiocron.crontab('*/2 * * * *')
-#@aiocron.crontab('* * * * *')
 async def gme_short_alert():
   print('Checking GME borrow')
   data = quack_service.check_gme_borrow()
