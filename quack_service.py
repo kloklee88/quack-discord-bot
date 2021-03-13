@@ -104,6 +104,11 @@ def get_help():
   help = f.readlines()
   return ''.join(help)
 
+def get_whiskey():
+  f = open('whiskey.txt')
+  help = f.readlines()
+  return ''.join(help)
+
 def shuffle_balance(users):
   print("Shuffling")
   players = []

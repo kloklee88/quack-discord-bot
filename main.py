@@ -24,29 +24,25 @@ async def on_message(message):
 
   #Process message commands
   full_command = message.content.strip().split(' ')
-  if message.content.startswith('!stock'):
-    if len(full_command) == 2:
-      first_command = full_command[1]
-      await message.channel.send(check_stock(first_command))
 
   if message.content.startswith('!quack') or message.content.startswith('!quak'):
     print(full_command)
     if len(full_command) == 2:
       first_command = full_command[1]
       if first_command.startswith('<@!'):
-        await message.channel.send(personalized_message(message.mentions[0]))
+        await message.channel.send(quack_service.get_personalized_message(message.mentions[0]))
       elif first_command == 'about':
         await message.channel.send(about())
       elif first_command == 'help':
-        await message.channel.send(help())
+        await message.channel.send(quack_service.get_help())
       elif first_command == 'quack':
-        await message.channel.send(quack(2))
+        await message.channel.send(quack_service.print_quack(2))
     elif len(full_command) >= 3:
       all_quack = check_all_quack(full_command)
       if all_quack == True:
-        await message.channel.send(quack(len(full_command)))
+        await message.channel.send(quack_service.print_quack(len(full_command)))
     else:
-      await message.channel.send(quack(1))
+      await message.channel.send(quack_service.print_quack(1))
 
   if message.content.startswith('!food'):
     print(full_command)
@@ -54,15 +50,23 @@ async def on_message(message):
       first_command = full_command[1]
       try:
         number = int(first_command)
-        await message.channel.send(food(number))
+        await message.channel.send(quack_service.random_food(1))
       except:
         await message.channel.send('Invalid command')
     else:
-      await message.channel.send(food(1))
+      await message.channel.send(quack_service.random_food(1))
+
+  if message.content.startswith('!stock'):
+    if len(full_command) == 2:
+      first_command = full_command[1]
+      await message.channel.send(quack_service.check_stock(first_command))
 
   if message.content.startswith('!gme'):
     print(full_command)
-    await message.channel.send(gme())
+    await message.channel.send(quack_service.check_gme())
+
+  if message.content.startswith('!whiskey'):
+    await message.channel.send(quack_service.get_whiskey())
 
   if message.content.startswith('!inhouse'):
     print(full_command)
@@ -73,9 +77,9 @@ async def on_message(message):
         if len(message.mentions) != 10:
           await message.channel.send("Inhouse feature requires exactly 10 players")
         else:
-          await message.channel.send(inhouse(message.mentions, None))
+          await message.channel.send(quack_service.inhouse(message.mentions, None))
     else:
-      await message.channel.send(available_players())
+      await message.channel.send(', '.join(quack_service.get_all_players()))
 
   if message.content.startswith('!alert'):
     print(full_command)
@@ -83,11 +87,11 @@ async def on_message(message):
       first_command = full_command[1]
       second_command = full_command[2]
       if first_command == 'gme' and (second_command == 'True' or second_command == 'False'):
-        save_alert_enabled('gme', eval(second_command))
+        quack_service.save_alert_enabled('gme', eval(second_command))
         await message.channel.send("Alert for GME updated")
 
   if message.content.startswith('!shouldisellgme'):
-    await message.channel.send(shouldisellgme())
+    await message.channel.send(quack_service.shouldisellgme())
 
   if message.content.startswith('!jorgegenshin'):
     result = ''
@@ -119,20 +123,8 @@ async def gme_short_alert():
     await channel.send(borrow_info)
     await jorge.send(borrow_info)
 
-def inhouse(mentions, option):
-  return quack_service.balance(mentions, option)
-
-def personalized_message(mentions):
-  return quack_service.get_personalized_message(mentions)
-
 def about():
   return "A dedicated Discord bot for He's a Quack! server for everything, anything, and nothing :smile:"
-
-def shouldisellgme():
-  return quack_service.shouldisellgme()
-
-def help():
-  return quack_service.get_help()
 
 def check_all_quack(full_command):
   print('Checking quacks')
@@ -141,23 +133,5 @@ def check_all_quack(full_command):
     if 'quack' not in command.lower():
       all_quack = False
   return all_quack
-
-def save_alert_enabled(alert,is_enabled):
-  return quack_service.save_alert_enabled(alert,is_enabled)
-
-def food(number):
-  return quack_service.random_food(number)
-
-def quack(number):
-  return quack_service.print_quack(number)
-
-def gme():
-  return quack_service.check_gme()
-
-def check_stock(stock):
-  return quack_service.check_stock(stock)
-
-def available_players():
-  return ', '.join(quack_service.get_all_players())
 
 client.run(os.getenv('TOKEN'))
