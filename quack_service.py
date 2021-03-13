@@ -18,6 +18,14 @@ def get_personalized_message(user):
     return ':smiley:'
   return random.choice(all_user_messages)
 
+def check_all_quack(full_command):
+  print('Checking quacks')
+  all_quack = True
+  for command in full_command:
+    if 'quack' not in command.lower():
+      all_quack = False
+  return all_quack
+
 def print_quack(number):
   result = 'Quack'
   if number >= 2:

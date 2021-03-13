@@ -38,7 +38,7 @@ async def on_message(message):
       elif first_command == 'quack':
         await message.channel.send(quack_service.print_quack(2))
     elif len(full_command) >= 3:
-      all_quack = check_all_quack(full_command)
+      all_quack = quack_service.check_all_quack(full_command)
       if all_quack == True:
         await message.channel.send(quack_service.print_quack(len(full_command)))
     else:
@@ -125,13 +125,5 @@ async def gme_short_alert():
 
 def about():
   return "A dedicated Discord bot for He's a Quack! server for everything, anything, and nothing :smile:"
-
-def check_all_quack(full_command):
-  print('Checking quacks')
-  all_quack = True
-  for command in full_command:
-    if 'quack' not in command.lower():
-      all_quack = False
-  return all_quack
 
 client.run(os.getenv('TOKEN'))
