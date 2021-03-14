@@ -155,5 +155,5 @@ def get_jorge_help():
   help = f.readlines()
   return ''.join(help)
 
-def get_jorge_website():
+def get_jorge_site():
   return 'https://jorgecapital.tk'

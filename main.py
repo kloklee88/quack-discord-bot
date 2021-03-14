@@ -96,6 +96,12 @@ async def on_message(message):
   if message.content.startswith('!shouldisellgme'):
     await message.channel.send(quack_service.shouldisellgme())
 
+  if message.content.startswith('!gordon'):
+    if len(full_command) == 2:
+      first_command = full_command[1]
+    else: 
+      await message.channel.send('Hearthstone all skill when I win and all luck when I lose')
+
   if message.content.startswith('!jorge'):
     if len(full_command) == 2:
       first_command = full_command[1]
@@ -111,8 +117,8 @@ async def on_message(message):
         await message.channel.send(result)
       elif first_command.startswith('site'):
         await message.channel.send(quack_service.get_jorge_site())
-      else:
-        await message.channel.send(quack_service.get_jorge_help())
+    else:
+      await message.channel.send(quack_service.get_jorge_help())
 
   if message.content.startswith('garbage bot') or message.content.startswith('trash bot'):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
