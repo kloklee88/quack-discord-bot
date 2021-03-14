@@ -4,10 +4,9 @@ Commands:
 **!quack quack quack...** -- quacks?
 **!gme** -- checks if we are going to the moon
 **!stock symbol** -- checks stock price with the symbol provided
-**!alert gme True/False** -- turns off borrow alerts for GME True or False needs to be capitalized
 **!shouldisellgme** -- answers the question "Should I sell GME?"
-**!jorgegenshin** -- answers the question "Is Jorge playing Genshin Impact?"
 **!food #** -- randomnly suggests # (optional value, default is 1) food places to eat
 **!inhouse** -- view all the available players in the system with a MMR
 **!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. This will balance players accordingly into two balanced team using MMR (this functionality is currently in progress)
+**!slime** -- slimes
 **!whiskey** -- whiskey recommendations

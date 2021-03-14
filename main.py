@@ -50,7 +50,7 @@ async def on_message(message):
       first_command = full_command[1]
       try:
         number = int(first_command)
-        await message.channel.send(quack_service.random_food(1))
+        await message.channel.send(quack_service.random_food(number))
       except:
         await message.channel.send('Invalid command')
     else:
@@ -90,19 +90,29 @@ async def on_message(message):
         quack_service.save_alert_enabled('gme', eval(second_command))
         await message.channel.send("Alert for GME updated")
 
+  if message.content.startswith('!slime'):
+    await message.channel.send(quack_service.slime())
+
   if message.content.startswith('!shouldisellgme'):
     await message.channel.send(quack_service.shouldisellgme())
 
-  if message.content.startswith('!jorgegenshin'):
-    result = ''
-    guild = client.get_guild(int(os.getenv('GUILD')))
-    jorge = guild.get_member(int(os.getenv('JORGE')))
-    print(jorge.activity)
-    if 'Genshin Impact' in str(jorge.activity):
-      result = 'of course he is'
-    else:
-      result = 'no'
-    await message.channel.send(result)
+  if message.content.startswith('!jorge'):
+    if len(full_command) == 2:
+      first_command = full_command[1]
+      if first_command.startswith('genshin'):
+        result = ''
+        guild = client.get_guild(int(os.getenv('GUILD')))
+        jorge = guild.get_member(int(os.getenv('JORGE')))
+        print(jorge.activity)
+        if 'Genshin Impact' in str(jorge.activity):
+          result = 'of course he is'
+        else:
+          result = 'no'
+        await message.channel.send(result)
+      elif first_command.startswith('site'):
+        await message.channel.send(quack_service.get_jorge_site())
+      else:
+        await message.channel.send(quack_service.get_jorge_help())
 
   if message.content.startswith('garbage bot') or message.content.startswith('trash bot'):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
@@ -114,7 +124,6 @@ async def gme_short_alert():
   borrow_info = f'Fee ({data[0]}) | Available ({data[1]}) | Updated ({data[2]})'
   channel = discord.utils.get(client.get_all_channels(), guild__name='Confucius Private', name='misc')
   jorge = await client.fetch_user(int(os.getenv('JORGE')))
-  #print(jorge)
   is_alert_enabled = replit_db_crud.get_alert_enabled("gme")
   borrow_latest = replit_db_crud.get_alert_enabled("borrow_latest")
   print(f'Last: {borrow_latest} vs Recent: {data[2]}')

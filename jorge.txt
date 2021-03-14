@@ -1,0 +1,3 @@
+Commands:
+**!jorge genshin** -- answers the question "Is Jorge playing Genshin Impact?"
+**!jorge site** -- shows URL of Jorge Capital

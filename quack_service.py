@@ -51,6 +51,14 @@ def random_food(number):
   else:
     return random.choice(foods)
 
+def slime():
+  slimes = []
+  with open('slimes.txt') as message_text:
+    for line in message_text:
+      slime = line.replace("\n", " ").strip()
+      slimes.append(slime)
+  return random.choice(slimes)
+
 def check_gme_borrow():
   try:
     chrome_options = Options()
@@ -140,3 +148,12 @@ def balance(users, option):
   for player in balanced_team[1]:
       result += player + '\n'
   return result
+
+##JORGE Services
+def get_jorge_help():
+  f = open('jorge.txt')
+  help = f.readlines()
+  return ''.join(help)
+
+def get_jorge_website():
+  return 'https://jorgecapital.tk'
