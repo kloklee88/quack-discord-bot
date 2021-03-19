@@ -4,6 +4,14 @@ import quack_service
 import aiocron
 import replit_db_crud 
 from keep_alive import keep_alive
+import logging
+
+#Logging
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 #Flask Server to keep repl.it alive
 keep_alive()
@@ -125,19 +133,19 @@ async def on_message(message):
     await message.channel.send("Well, why don't you do it yourself, you lazy ass useless human! :angry:")
 
 #@aiocron.crontab('*/2 * * * *')
-async def gme_short_alert():
-  print('Checking GME borrow')
-  data = quack_service.check_gme_borrow()
-  borrow_info = f'Fee ({data[0]}) | Available ({data[1]}) | Updated ({data[2]})'
-  channel = discord.utils.get(client.get_all_channels(), guild__name='Confucius Private', name='misc')
-  jorge = await client.fetch_user(int(os.getenv('JORGE')))
-  is_alert_enabled = replit_db_crud.get_alert_enabled("gme")
-  borrow_latest = replit_db_crud.get_alert_enabled("borrow_latest")
-  print(f'Last: {borrow_latest} vs Recent: {data[2]}')
-  print(f'Alert enabled: {is_alert_enabled}')
-  if is_alert_enabled and borrow_latest != data[2]:
-    await channel.send(borrow_info)
-    await jorge.send(borrow_info)
+# async def gme_short_alert():
+#   print('Checking GME borrow')
+#   data = quack_service.check_gme_borrow()
+#   borrow_info = f'Fee ({data[0]}) | Available ({data[1]}) | Updated ({data[2]})'
+#   channel = discord.utils.get(client.get_all_channels(), guild__name='Confucius Private', name='misc')
+#   jorge = await client.fetch_user(int(os.getenv('JORGE')))
+#   is_alert_enabled = replit_db_crud.get_alert_enabled("gme")
+#   borrow_latest = replit_db_crud.get_alert_enabled("borrow_latest")
+#   print(f'Last: {borrow_latest} vs Recent: {data[2]}')
+#   print(f'Alert enabled: {is_alert_enabled}')
+#   if is_alert_enabled and borrow_latest != data[2]:
+#     await channel.send(borrow_info)
+#     await jorge.send(borrow_info)
 
 def about():
   return "A dedicated Discord bot for He's a Quack! server for everything, anything, and nothing :smile:"
