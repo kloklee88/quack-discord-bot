@@ -38,6 +38,10 @@ def print_quack(number):
   result += '!'
   return result
 
+def random_item(user_list):
+  items = user_list.split(',')
+  return random.choice(items)
+
 def random_food(number):
   foods = []
   with open('foods.txt') as message_text:

@@ -96,11 +96,12 @@ async def on_message(message):
   if message.content.startswith('!shouldisellgme'):
     await message.channel.send(quack_service.shouldisellgme())
 
-  if message.content.startswith('!gordon'):
+  if message.content.startswith('!randomizer'):
     if len(full_command) == 2:
       first_command = full_command[1]
+      await message.channel.send(quack_service.random_item(first_command))
     else: 
-      await message.channel.send('Hearthstone all skill when I win and all luck when I lose')
+      await message.channel.send('Please add a list of values separated by commas. Ex: heads,tails,gordon,jorge')
 
   if message.content.startswith('!jorge'):
     if len(full_command) == 2:
