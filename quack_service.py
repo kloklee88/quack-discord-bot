@@ -161,3 +161,6 @@ def get_jorge_help():
 
 def get_jorge_site():
   return 'https://jorgecapital.tk'
+
+def get_jorge_rocks():
+  return 'https://clips.twitch.tv/OptimisticInventiveHabaneroResidentSleeper'
