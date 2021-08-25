@@ -1,8 +1,4 @@
 import random
-import replit_db_crud
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from yahoo_fin import stock_info as si
 
 def get_personalized_message(user):
   all_user_messages = []
@@ -63,50 +59,19 @@ def slime():
       slimes.append(slime)
   return random.choice(slimes)
 
-def check_gme_borrow():
-  try:
-    chrome_options = Options()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    print('Getting driver...')
-    driver = None
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.get("https://iborrowdesk.com/report/GME")
-    fee = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[1]').text
-    available = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[2]').text
-    updated = driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div[2]/div[5]/div/table/tbody/tr[1]/td[3]').text
-    replit_db_crud.save_alert_enabled('borrow_latest', updated)
-    data = [fee, available, updated]
-  finally:
-    if driver is not None:
-       driver.quit()
-  return data
+# def check_stock(stock):
+#   print(stock)
+#   try:
+#     stock = yf.Ticker(stock)
+#     stock_value = stock.info['regularMarketPrice']
+#     return f'{stock.upper()} live price (not after hours): {stock_value}'
+#   except:
+#     return f'{stock.upper()} symbol could not be found'
 
-def save_alert_enabled(alert,is_enabled):
-  replit_db_crud.save_alert_enabled(alert,is_enabled)
-
-def shouldisellgme():
-  stock_value = si.get_live_price("gme")
-  if stock_value > 500:
-    return 'yes'
-  elif stock_value > 400:
-    return 'probably'
-  elif stock_value > 300:
-    return 'maybe'
-  else:
-    return 'no'
-
-def check_stock(stock):
-  print(stock)
-  try:
-    stock_value = '{:.2f}'.format(si.get_live_price(stock))
-    return f'{stock.upper()} live price (not after hours): {stock_value}'
-  except:
-    return f'{stock.upper()} symbol could not be found'
-
-def check_gme():
-  stock_value = '{:.2f}'.format(si.get_live_price("gme"))
-  return f':rocket: GME :rocket: -- {stock_value}'
+# def check_gme():
+#   stock = yf.Ticker("GME")
+#   stock_value = stock.info['regularMarketPrice']
+#   return f':rocket: GME :rocket: -- {stock_value}'
 
 def get_all_players():
   players = []

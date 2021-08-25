@@ -3,13 +3,6 @@ import os
 import quack_service
 from keep_alive import keep_alive
 
-#Logging
-# logger = logging.getLogger('discord')
-# logger.setLevel(logging.INFO)
-# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-# logger.addHandler(handler)
-
 #Flask Server to keep repl.it alive
 keep_alive()
 
@@ -61,14 +54,14 @@ async def on_message(message):
     else:
       await message.channel.send(quack_service.random_food(1))
 
-  if message.content.startswith('!stock'):
-    if len(full_command) == 2:
-      first_command = full_command[1]
-      await message.channel.send(quack_service.check_stock(first_command))
+  # if message.content.startswith('!stock'):
+  #   if len(full_command) == 2:
+  #     first_command = full_command[1]
+  #     await message.channel.send(quack_service.check_stock(first_command))
 
-  if message.content.startswith('!gme'):
-    print(full_command)
-    await message.channel.send(quack_service.check_gme())
+  # if message.content.startswith('!gme'):
+  #   print(full_command)
+  #   await message.channel.send(quack_service.check_gme())
 
   if message.content.startswith('!whiskey'):
     await message.channel.send(quack_service.get_whiskey())
@@ -97,9 +90,6 @@ async def on_message(message):
 
   if message.content.startswith('!slime'):
     await message.channel.send(quack_service.slime())
-
-  if message.content.startswith('!shouldisellgme'):
-    await message.channel.send(quack_service.shouldisellgme())
 
   if message.content.startswith('!randomizer'):
     if len(full_command) == 2:
