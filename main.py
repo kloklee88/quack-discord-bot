@@ -13,6 +13,8 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
+  activity = discord.Game(name="!quack help")
+  await client.change_presence(activity=activity)
   print('We have logged in as {0.user}'.format(client))
 
 @client.event

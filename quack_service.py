@@ -109,6 +109,7 @@ def shuffle_balance(users):
   return balanced_team
 
 def balance(users, option):
+  #TODO: implement function for actual MMR sorting using players.txt
   balanced_team = shuffle_balance(users)
   result = '**Team One:**\n'
   for player in balanced_team[0]:

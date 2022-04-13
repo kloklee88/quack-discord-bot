@@ -2,8 +2,6 @@ Commands:
 **!quack about** -- bot description
 **!quack @mention** -- where @mention is anybody in the server to receive a random customized message
 **!quack quack quack...** -- quacks?
-**!gme** -- checks if we are going to the moon
-**!stock symbol** -- checks stock price with the symbol provided
 **!food #** -- randomnly suggests # (optional value, default is 1) food places to eat
 **!inhouse** -- view all the available players in the system with a MMR
 **!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. This will balance players accordingly into two balanced team using MMR. (IN PROGRESS)
