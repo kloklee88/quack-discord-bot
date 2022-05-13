@@ -37,7 +37,7 @@ class Player:
     def __init__(self, summName: str):
         try:
             player = watcher.summoner.by_name(region, summName)
-            exists = True
+            self.exists = True
         except ApiError as err:
             if err.response.status_code == 404:
                 print("Summoner name not found")
