@@ -94,6 +94,21 @@ def get_whiskey():
   help = f.readlines()
   return ''.join(help)
 
+##Inhouse functions
+def lookup(player):
+  player_lookup = None
+  with open('players.txt') as message_text:
+    for line in message_text:
+      player_info = line.replace("\n", " ").strip()
+      username = player_info.split(';')[0]
+      mmr = player_info.split(';')[1]
+      if player[0].name == username:
+        player_lookup = f'{username} - {mmr}'
+  if player_lookup == None:
+    return f'{player[0].name} was not found'
+  return player_lookup
+    
+  
 def shuffle_balance(users):
   print("Shuffling")
   players = []
