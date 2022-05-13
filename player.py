@@ -1,9 +1,6 @@
-#api_key = ''
-from asyncio.windows_events import NULL
-from logging import RootLogger
-from pyparsing import Empty
+import os
+api_key = os.environ['RIOT_TOKEN']
 from riotwatcher import LolWatcher, ApiError
-import statistics
 watcher = LolWatcher(api_key)
 region = 'na1'
 

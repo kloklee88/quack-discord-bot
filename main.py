@@ -72,6 +72,7 @@ async def on_message(message):
     print(full_command)
     if len(full_command) > 2:
       first_command = full_command[1]
+      second_command = full_command[2]
       if first_command.startswith('<@!'):
         print(len(message.mentions))
         if len(message.mentions) != 10:
@@ -79,10 +80,7 @@ async def on_message(message):
         else:
           await message.channel.send(quack_service.balance(message.mentions, None))
       if first_command.startswith('lookup'):
-        if len(message.mentions) != 1:
-          await message.channel.send("Inhouse lookup feature requires only 1 mention")
-        else:
-          await message.channel.send(quack_service.lookup(full_command[2]))
+        await message.channel.send(quack_service.lookup(second_command))
     else:
       await message.channel.send(', '.join(quack_service.get_all_players()))
 
