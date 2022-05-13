@@ -29,6 +29,7 @@ class Player:
     division = ''
     lp = int()
     winrate = float()
+    exists = False
     
     role = ''
     score = int()
@@ -36,6 +37,7 @@ class Player:
     def __init__(self, summName: str):
         try:
             player = watcher.summoner.by_name(region, summName)
+            exists = True
         except ApiError as err:
             if err.response.status_code == 404:
                 print("Summoner name not found")
@@ -46,7 +48,10 @@ class Player:
         self.summonerName = summName
 
         rankedStats = watcher.league.by_summoner(region, player['id'])
-        if self.rank is not None:
+        if rankedStats[0]['queueType'] == "RANKED_TFT_PAIRS":
+            del rankedStats[0]
+
+        if len(rankedStats) > 0:
             self.rank = rankedStats[0]['tier']
             self.division = rankedStats[0]['rank']
             self.lp = rankedStats[0]['leaguePoints']
@@ -143,6 +148,5 @@ class Player:
         -!quack lookup [summonerName]
         -!quack teams
     """
-
 
 
