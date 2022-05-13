@@ -1,4 +1,4 @@
-api_key = 'RGAPI-12b3a148-b27f-45ca-b877-a18a9b00ba1b'
+#api_key = ''
 from asyncio.windows_events import NULL
 from logging import RootLogger
 from pyparsing import Empty
