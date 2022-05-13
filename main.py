@@ -82,7 +82,7 @@ async def on_message(message):
         if len(message.mentions) != 1:
           await message.channel.send("Inhouse lookup feature requires only 1 mention")
         else:
-          await message.channel.send(quack_service.lookup(message.mentions))
+          await message.channel.send(quack_service.lookup(full_command[2]))
     else:
       await message.channel.send(', '.join(quack_service.get_all_players()))
 

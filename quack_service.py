@@ -1,4 +1,5 @@
 import random
+from player import Player
 
 def get_personalized_message(user):
   all_user_messages = []
@@ -96,6 +97,19 @@ def get_whiskey():
 
 ##Inhouse functions
 def lookup(player):
+  target = Player(player)
+  if target is None:
+    player_lookup = f'Summoner does not exist.'
+  else:
+    player_lookup = f'Summoner name: {player}\n\
+                      Rank: {target.rank} {target.division} {target.lp}LP\n\
+                      Primary Role: {target.role}\n\
+                      Win Rate: {int(target.winrate*100)}%\n\
+                      '
+  return player_lookup
+  
+  
+  
   player_lookup = None
   with open('players.txt') as message_text:
     for line in message_text:
