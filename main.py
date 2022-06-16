@@ -69,13 +69,13 @@ async def on_message(message):
     await message.channel.send(quack_service.get_whiskey())
 
   if message.content.startswith('!inhouse'):
-    print(full_command)
     if len(full_command) > 2:
       first_command = full_command[1]
       second_command = full_command[2]
       if first_command.startswith('lookup'):
         await message.channel.send(quack_service.lookup(second_command))
     elif len(full_command) == 2:
+      first_command = full_command[1]
       print('Balancing players...')
       players = first_command.split(',')
       print(players)
