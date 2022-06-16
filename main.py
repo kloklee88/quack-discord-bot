@@ -75,12 +75,14 @@ async def on_message(message):
       second_command = full_command[2]
       if first_command.startswith('lookup'):
         await message.channel.send(quack_service.lookup(second_command))
+    elif len(full_command) == 2:
+      print('Balancing players...')
+      players = first_command.split(',')
+      print(players)
+      if len(players) == 10: 
+        message.channel.send(quack_service.balance(players, None))
       else:
-        players = first_command.split(',')
-        if len(players) == 10: 
-          message.channel.send(quack_service.balance(players, None))
-        else:
-          await message.channel.send('Inhouse needs exactly 10 players')
+        await message.channel.send('Inhouse needs exactly 10 players')
     else:
       await message.channel.send(', '.join(quack_service.get_all_players()))
 
