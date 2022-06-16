@@ -1,16 +1,10 @@
-Confucius;1500
-Rags;1500
-Not Today;1500
-beth;1500
-AGenericName;1500
-Manoafalls;1500
-xXMadreloaderXx;1500
-foghi8;1500
-Tourbear;1500
-Caroline;1500
-Cheqelz;1500
-Eroc;1500
-Buhyun;1500
-Lsw1225;1500
-Bukrafter;1500
-Swifter;1500
+eroc|TOPLANE
+rags|ADC
+cheqelz|MIDLANE
+bigbreakfast|SUPP
+toesandhoes|SUPP
+foghi8|JG
+agenericname1|JG
+ahripiss|JG
+bukrafter|MIDLANE
+clownuniversity|FILL

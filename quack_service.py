@@ -1,4 +1,5 @@
 import random
+import binpacking
 from player import Player
 
 def get_personalized_message(user):
@@ -98,6 +99,7 @@ def get_whiskey():
 ##Inhouse functions
 def lookup(player):
   target = Player(player)
+  target.getPrimaryRole()
   if not target.exists:
     player_lookup = f'Summoner does not exist.'
   else:
@@ -138,15 +140,25 @@ def shuffle_balance(users):
   balanced_team = [team_one, team_two]
   return balanced_team
 
+def get_winrate(player):
+  target = Player(player)
+  if target is None:
+    winrate = .5 #TODO: temporary just set to a 50% winrate
+  else:
+    winrate = target.winrate
+  return winrate
+
 def balance(users, option):
-  #TODO: implement function for actual MMR sorting using players.txt
-  balanced_team = shuffle_balance(users)
+  players = {}
+  for user in users:
+      players[user] = get_winrate(user)
+  balanced_team = binpacking.to_constant_bin_number(players,2)
   result = '**Team One:**\n'
-  for player in balanced_team[0]:
-      result += player + '\n'
+  for player, mmr in balanced_team[0].items():
+      result += f'{player}: {mmr}\n'
   result += '\n**Team Two:**\n'
-  for player in balanced_team[1]:
-      result += player + '\n'
+  for player, mmr in balanced_team[1].items():
+      result += f'{player}: {mmr}\n'
   return result
 
 ##JORGE Services
