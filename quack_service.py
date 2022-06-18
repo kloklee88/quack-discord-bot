@@ -157,16 +157,18 @@ def balance(users, option):
   team_two_sum = 0
   result = '**Team One:**\n'
   for player, mmr in balanced_team[0].items():
-      result += f'{player}: {round(mmr*100,2)}%\n'
+      mmr = mmr*100
+      result += f'{player}:\t\t\t\t{round(mmr,2)}%\n'
       team_one_sum += mmr
-  result += f'Sum: {round(team_one_sum*100,2)}'
+  #result += f'Sum: {round(team_one_sum,2)}'
   result += '\n**Team Two:**\n'
   for player, mmr in balanced_team[1].items():
-      result += f'{player}: {round(mmr*100,2)}%\n'
+      mmr = mmr*100
+      result += f'{player}:\t\t\t\t{round(mmr,2)}%\n'
       team_two_sum += mmr
-  result += f'Sum: {round(team_two_sum*100,2)}'
+  #result += f'Sum: {round(team_two_sum,2)}'
   difference = round(abs(team_one_sum-team_two_sum),2)
-  result += f'\n**Team Difference**: {difference*100}%'
+  result += f'\n**Team Difference**: {difference}%'
   return result
 
 ##JORGE Services
