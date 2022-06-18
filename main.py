@@ -80,7 +80,7 @@ async def on_message(message):
       players = first_command.split(',')
       print(players)
       if len(players) == 10: 
-        message.channel.send(quack_service.balance(players, None))
+        await message.channel.send(quack_service.balance(players, None))
       else:
         await message.channel.send('Inhouse needs exactly 10 players')
     else:

@@ -153,12 +153,20 @@ def balance(users, option):
   for user in users:
       players[user] = get_winrate(user)
   balanced_team = binpacking.to_constant_bin_number(players,2)
+  team_one_sum = 0
+  team_two_sum = 0
   result = '**Team One:**\n'
   for player, mmr in balanced_team[0].items():
-      result += f'{player}: {mmr}\n'
+      result += f'{player}: {round(mmr*100,2)}%\n'
+      team_one_sum += mmr
+  result += f'Sum: {round(team_one_sum*100,2)}'
   result += '\n**Team Two:**\n'
   for player, mmr in balanced_team[1].items():
-      result += f'{player}: {mmr}\n'
+      result += f'{player}: {round(mmr*100,2)}%\n'
+      team_two_sum += mmr
+  result += f'Sum: {round(team_two_sum*100,2)}'
+  difference = round(abs(team_one_sum-team_two_sum),2)
+  result += f'\n**Team Difference**: {difference*100}%'
   return result
 
 ##JORGE Services
