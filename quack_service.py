@@ -1,5 +1,6 @@
 import random
 import binpacking
+import tabulate
 from player import Player
 
 def get_personalized_message(user):
@@ -113,17 +114,17 @@ def lookup(player):
   
   
   
-  player_lookup = None
-  with open('players.txt') as message_text:
-    for line in message_text:
-      player_info = line.replace("\n", " ").strip()
-      username = player_info.split(';')[0]
-      mmr = player_info.split(';')[1]
-      if player[0].name == username:
-        player_lookup = f'{username} - {mmr}'
-  if player_lookup == None:
-    return f'{player[0].name} was not found'
-  return player_lookup
+  # player_lookup = None
+  # with open('players.txt') as message_text:
+  #   for line in message_text:
+  #     player_info = line.replace("\n", " ").strip()
+  #     username = player_info.split(';')[0]
+  #     mmr = player_info.split(';')[1]
+  #     if player[0].name == username:
+  #       player_lookup = f'{username} - {mmr}'
+  # if player_lookup == None:
+  #   return f'{player[0].name} was not found'
+  # return player_lookup
     
   
 def shuffle_balance(users):
@@ -155,18 +156,20 @@ def balance(users, option):
   balanced_team = binpacking.to_constant_bin_number(players,2)
   team_one_sum = 0
   team_two_sum = 0
+  table_one = []
+  table_two = []
   result = '**Team One:**\n'
   for player, mmr in balanced_team[0].items():
       mmr = mmr*100
-      result += f'{player}:\t\t\t\t{round(mmr,2)}%\n'
+      table_one.append([player,round(mmr,2)])
       team_one_sum += mmr
-  #result += f'Sum: {round(team_one_sum,2)}'
+  result += tabulate(table_one)
   result += '\n**Team Two:**\n'
   for player, mmr in balanced_team[1].items():
       mmr = mmr*100
-      result += f'{player}:\t\t\t\t{round(mmr,2)}%\n'
+      table_two.append([player,round(mmr,2)])
       team_two_sum += mmr
-  #result += f'Sum: {round(team_two_sum,2)}'
+  result += tabulate(table_two)
   difference = round(abs(team_one_sum-team_two_sum),2)
   result += f'\n**Team Difference**: {difference}%'
   return result

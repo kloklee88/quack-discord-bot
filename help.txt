@@ -4,8 +4,8 @@ Commands:
 **!quack quack quack...** -- quacks?
 **!food #** -- randomnly suggests # (optional value, default is 1) food places to eat
 **!inhouse** -- view all the available players in the system with a MMR
-**!inhouse lookup @mention** -- view the info on one player in the system, only takes one user
-**!inhouse @mentions** -- where @mentions are all 10 players participating in the inhouse. Example call (!inhouse @Confucius @Eroc etc). This will balance players accordingly into two balanced team using MMR. (IN PROGRESS)
+**!inhouse lookup [summoner name]** -- view the info on one player in the system, only takes one user
+**!inhouse [summoner1,summoner2,...]** -- where comma separated list with no spaces of all 10 players participating in the inhouse. Example call (!inhouse confucius88,eroc,... etc). This will balance players accordingly into two balanced team using MMR. (IN PROGRESS)
 **!randomizer list** -- randomnly picks one option from your comma delimited list
 **!slime** -- slimes
 **!whiskey** -- whiskey recommendations
