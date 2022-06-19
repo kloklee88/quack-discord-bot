@@ -1,6 +1,6 @@
 import random
 import binpacking
-import tabulate
+from tabulate import tabulate
 from player import Player
 
 def get_personalized_message(user):
@@ -161,15 +161,15 @@ def balance(users, option):
   result = '**Team One:**\n'
   for player, mmr in balanced_team[0].items():
       mmr = mmr*100
-      table_one.append([player,round(mmr,2)])
+      table_one.append([player,f'{round(mmr,2)}%'])
       team_one_sum += mmr
-  result += tabulate(table_one)
+  result += "```" + tabulate(table_one) + "```"
   result += '\n**Team Two:**\n'
   for player, mmr in balanced_team[1].items():
       mmr = mmr*100
-      table_two.append([player,round(mmr,2)])
+      table_two.append([player,f'{round(mmr,2)}%'])
       team_two_sum += mmr
-  result += tabulate(table_two)
+  result += "```" + tabulate(table_two) + "```"
   difference = round(abs(team_one_sum-team_two_sum),2)
   result += f'\n**Team Difference**: {difference}%'
   return result
