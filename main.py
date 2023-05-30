@@ -9,6 +9,7 @@ keep_alive()
 intents = discord.Intents.default()
 intents.members = True
 intents.presences = True
+intents.message_content = True
 client = discord.Client(intents=intents)
 
 @client.event
